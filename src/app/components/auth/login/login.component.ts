@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { LoginService } from './login.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
 
-  constructor(private service: LoginService, private router: Router) {}
+  constructor(private service: LoginService, private router: Router, private toastr: ToastrService) {}
 
   onSubmit() {
     this.service.login(this.email, this.password).subscribe(response => {
@@ -20,9 +21,11 @@ export class LoginComponent {
         localStorage.setItem('token', token);
         this.router.navigate(['/home']);
       } else {
-        // TODO handle error
-        throw new Error("Invalid Credentials");
+        this.toastr.error("Invalid Credentials");
       }
+    },
+    ({error}) => {
+      this.toastr.error(error.message);
     });
   }
 }
