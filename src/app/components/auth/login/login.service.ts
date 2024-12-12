@@ -17,4 +17,13 @@ export class LoginService {
       password
     });
   }
+
+  logout() {
+    // TODO Handle logout
+    localStorage.removeItem('token');
+  }
+
+  isLoggedIn() {
+    return !!localStorage.getItem('token');
+  }
 }
