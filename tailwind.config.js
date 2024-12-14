@@ -4,7 +4,13 @@ module.exports = {
     "./src/**/*.{html,ts}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'orders': "url('./assets/orders.webp')",
+        'menu': "url('./assets/menu.jpg')",
+        'reports': "url('./assets/reports.jpg')",
+      }
+    },
   },
   plugins: [],
 }
