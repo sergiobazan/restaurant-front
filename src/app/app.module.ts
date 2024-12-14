@@ -15,6 +15,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { AuthService } from './shared/AuthService';
 import { MenusComponent } from './pages/menus/menus.component';
+import { SelectDropDownModule } from 'ngx-select-dropdown'
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { MenusComponent } from './pages/menus/menus.component';
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    SelectDropDownModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

@@ -13,7 +13,12 @@ export class MenusComponent implements OnInit {
   addDishSelected: boolean = false;
   addMenuSelected: boolean = true;
 
-  selectedDish = [];
+  config = {
+    displayKey: 'name',
+    placeholder:'Select dishes'
+  }
+
+  selectedDishes: Dish[] = [];
 
   dish: Dish = {
     name: '',
@@ -71,6 +76,10 @@ export class MenusComponent implements OnInit {
   }
 
   onCreateMenu() {
+    this.menu = {
+      ...this.menu,
+      dishes: this.selectedDishes.map(d => d.id!)
+    }
     this.service.createMenu(this.menu).subscribe({
       next: (response) => {
         if (response.success) {
@@ -82,6 +91,7 @@ export class MenusComponent implements OnInit {
             restaurantId: 2,
             dishes: []
           }
+          this.selectedDishes = []
           return;
         }
         return this.toaster.error(response.message);
