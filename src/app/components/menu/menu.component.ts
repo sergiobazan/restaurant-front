@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from 'src/app/shared/AuthService';
 
 @Component({
   selector: 'app-menu',
@@ -6,5 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: []
 })
 export class MenuComponent {
+  isLoggedIn: boolean = !!localStorage.getItem('token');
 
+  constructor(private authService: AuthService) {}
+
+  logout() {
+    this.isLoggedIn = false;
+    this.authService.logout();
+  }
 }

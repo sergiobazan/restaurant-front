@@ -19,6 +19,10 @@ export class AuthService {
 
   handleAuthError() {
     this.toaster.error('Error authenticating user');
+    this.logout();
+  }
+
+  logout() {
     localStorage.removeItem('token');
     this.router.navigate(['/login']);
   }
