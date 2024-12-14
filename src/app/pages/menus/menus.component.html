@@ -1,0 +1,59 @@
+<section class="flex flex-col items-center mt-8">
+  <h1 class="font-semibold text-xl text-gray-900">Menus</h1>
+  <div class="flex items-center justify-between mt-4 py-6 px-1 lg:w-[420px] min-w-[380px]">
+    <button (click)="onAddMenu()" class="border bg-green-400 text-white px-4 py-1 rounded-md">
+      Add Menu
+    </button>
+    <button (click)="onAddDish()" class="border bg-yellow-300 text-white px-4 py-1 rounded-md">
+      Add Dish
+    </button>
+  </div>
+  <div *ngIf="addDishSelected" class="p-6 lg:w-[420px] min-w-[380px] border-2 border-slate-400 rounded-md">
+    <h2 class="font-semibold text-xl text-gray-900 text-center">Dish</h2>
+    <form (submit)="onCreateDish()">
+      <div class="flex flex-col gap-1 mb-2">
+        <label for="name">Name</label>
+        <input id="name" type="text" name="name" [(ngModel)]="dish.name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
+      </div>
+      <div class="flex flex-col gap-1 mb-2">
+        <label for="unitPrice">Unit Price</label>
+        <input id="unitPrice" type="number" min="1" name="unitPrice" [(ngModel)]="dish.unitPrice" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
+      </div>
+      <div class="flex flex-col gap-1 mb-2">
+        <label for="description">Description</label>
+        <textarea id="description" name="description" [(ngModel)]="dish.description" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"></textarea>
+      </div>
+      <button type="submit" class="border bg-blue-500 text-white px-4 py-1 rounded-md">
+        Create Dish
+      </button>
+    </form>
+  </div>
+
+  <div *ngIf="addMenuSelected" class="p-6 lg:w-[420px] min-w-[380px] border-2 border-slate-400 rounded-md">
+    <h2 class="font-semibold text-xl text-gray-900 text-center">Menu</h2>
+    <form (submit)="onCreateMenu()">
+      <div class="flex flex-col gap-1 mb-2">
+        <label for="name">Name</label>
+        <input id="name" type="text" name="name" [(ngModel)]="menu.name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
+      </div>
+      <div class="flex flex-col gap-1 mb-2">
+        <label for="price">Price</label>
+        <input id="price" type="number" min="1" name="price" [(ngModel)]="menu.price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
+      </div>
+      <div class="flex flex-col gap-1 mb-2">
+        <label for="date">Date</label>
+        <input id="date" type="date" name="date" [(ngModel)]="menu.date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
+      </div>
+      <div class="flex flex-col gap-1 mb-2">
+        <label for="dishes">Dishes</label>
+        <select name="dishes" id="dishes" [(ngModel)]="selectedDish" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+          <option value="">Select dish</option>
+          <option *ngFor="let dish of dishes" [value]="dish?.id">{{ dish?.name }}</option>
+        </select>
+       </div>
+      <button type="submit" class="border bg-blue-500 text-white px-4 py-1 rounded-md">
+        Create Menu
+      </button>
+    </form>
+  </div>
+</section>

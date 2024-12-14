@@ -19,7 +19,7 @@ export class LoginComponent {
       if (response.success) {
         const token = response.data;
         localStorage.setItem('token', token);
-        this.router.navigate(['/home']);
+        this.router.navigate(['/']);
       } else {
         this.toastr.error("Invalid Credentials");
       }

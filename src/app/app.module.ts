@@ -14,6 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { AuthService } from './shared/AuthService';
+import { MenusComponent } from './pages/menus/menus.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AuthService } from './shared/AuthService';
     MenuComponent,
     LoginComponent,
     HomeComponent,
-    RegisterComponent
+    RegisterComponent,
+    MenusComponent
   ],
   imports: [
     BrowserModule,
