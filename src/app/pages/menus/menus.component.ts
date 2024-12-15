@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Dish } from './Dish';
+import { Dish } from './models/Dish';
 import { MenuService } from './menu.service';
 import { ToastrService } from 'ngx-toastr';
-import { Menu } from './Menu';
+import { Menu } from './models/Menu';
 
 @Component({
   selector: 'app-menus',
@@ -78,7 +78,7 @@ export class MenusComponent implements OnInit {
   onCreateMenu() {
     this.menu = {
       ...this.menu,
-      dishes: this.selectedDishes.map(d => d.id!)
+      dishes: this.selectedDishes.length > 0 ? this.selectedDishes.map(d => d.id!) : []
     }
     this.service.createMenu(this.menu).subscribe({
       next: (response) => {

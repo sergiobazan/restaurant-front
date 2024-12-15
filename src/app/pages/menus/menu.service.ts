@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Dish } from './Dish';
+import { Dish } from './models/Dish';
 import { apiUrl } from 'src/app/constants/apiUrl';
 import { Response } from 'src/app/shared/Response';
-import { Menu } from './Menu';
+import { Menu } from './models/Menu';
 
 @Injectable({
   providedIn: 'root'
