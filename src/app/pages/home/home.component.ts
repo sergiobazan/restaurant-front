@@ -1,5 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/shared/AuthService';
+import { User } from './models/User';
+import { HomeService } from './home.service';
+import { ToastrService } from 'ngx-toastr';
+import { Restaurant } from './models/Restaurant';
 
 @Component({
   selector: 'app-home',
@@ -7,11 +11,21 @@ import { AuthService } from 'src/app/shared/AuthService';
   styleUrls: [],
 })
 export class HomeComponent implements OnInit {
-  user: any = null;
+  user: User | null = null;
+  restaurantId: number = 1; // TODO fix restaurant id
+  restaurant: Restaurant | null = null;
   
-  constructor(private auth: AuthService) {}
+  constructor(
+    private service: HomeService, 
+    private auth: AuthService,
+    private toaster: ToastrService) {}
 
   ngOnInit(): void {
+   this.getUser();
+   this.getRestaurant();
+  }
+
+  private getUser() {
     this.auth.getAuthenticatedUser().subscribe({
       next: (result) => {
         if (result.success) {
@@ -22,5 +36,18 @@ export class HomeComponent implements OnInit {
       },
       error: (_) => this.auth.handleAuthError()
     });
+  }
+
+  private getRestaurant() {
+    this.service.getRestaurant(this.restaurantId).subscribe({
+      next: (result) => {
+        if (result.success) {
+          this.restaurant = result.data;
+          return;
+        }
+        return this.toaster.error(result.message);
+      },
+      error: () => this.toaster.error("Error fetching the restaurant")
+    })
   }
 }

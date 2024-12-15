@@ -15,7 +15,9 @@ import { ToastrModule } from 'ngx-toastr';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { AuthService } from './shared/AuthService';
 import { MenusComponent } from './pages/menus/menus.component';
-import { SelectDropDownModule } from 'ngx-select-dropdown'
+import { SelectDropDownModule } from 'ngx-select-dropdown';
+import { OwnerComponent } from './pages/home/owner/owner.component';
+import { ClientComponent } from './pages/home/client/client.component'
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { SelectDropDownModule } from 'ngx-select-dropdown'
     LoginComponent,
     HomeComponent,
     RegisterComponent,
-    MenusComponent
+    MenusComponent,
+    OwnerComponent,
+    ClientComponent
   ],
   imports: [
     BrowserModule,

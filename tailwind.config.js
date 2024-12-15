@@ -9,6 +9,7 @@ module.exports = {
         'orders': "url('./assets/orders.webp')",
         'menu': "url('./assets/menu.jpg')",
         'reports': "url('./assets/reports.jpg')",
+        'closed': "url('./assets/closed.jpg')"
       }
     },
   },
