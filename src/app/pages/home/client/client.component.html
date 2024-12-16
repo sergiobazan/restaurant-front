@@ -9,9 +9,10 @@
 
 
 <section *ngIf="!isClosed" class="max-w-sm sm:max-w-md mx-auto bg-white rounded-lg shadow-lg mt-10 p-6">
-  <h1 class="text-gray-700 text-lg font-bold mb-2">Hello {{ client?.name }}</h1>
+  <h1 class="text-gray-700 text-2xl font-bold mb-2">Hello {{ client?.name }}</h1>
   <p class="text-gray-500 mb-4">Ready for the best homemade food? <strong>Order here!</strong></p>
-  <p class="text-gray-800 font-bold text-xl mb-4">Menu ${{ restaurant?.menu?.price }}</p>
+  <h2 class="text-gray-800 font-bold text-xl mb-4">{{ restaurant?.menu?.name }}</h2>
+  <p class="text-gray-800 font-bold text-lg mb-4">Menu ${{ restaurant?.menu?.price }}</p>
 
   <h2 class="text-gray-600 font-semibold mb-2">Select Starter</h2>
   <div class="space-y-2">

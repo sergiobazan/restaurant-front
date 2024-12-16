@@ -13,6 +13,8 @@ export class MenusComponent implements OnInit {
   addDishSelected: boolean = false;
   addMenuSelected: boolean = true;
 
+  dishTypes = ['Starter', 'Main Course', 'Extra'].map((dt, idx) => ({id: idx, name: dt}));
+
   config = {
     displayKey: 'name',
     placeholder:'Select dishes'
@@ -23,7 +25,9 @@ export class MenusComponent implements OnInit {
   dish: Dish = {
     name: '',
     unitPrice: 10,
-    description: ''
+    description: '',
+    type: 1,
+    isAvailable: true
   };
 
   menu: Menu = {
@@ -35,6 +39,8 @@ export class MenusComponent implements OnInit {
   }
 
   dishes: Dish[] = [];
+
+  dishTypeSelected: number = 1;
 
   constructor(private service: MenuService, private toaster: ToastrService) {}
   
@@ -58,6 +64,11 @@ export class MenusComponent implements OnInit {
   }
 
   onCreateDish() {
+    this.dish = {
+      ...this.dish,
+      type: this.dishTypeSelected
+    }
+    
     this.service.createDish(this.dish).subscribe({
       next: (response) => {
         if (response.success) {
@@ -65,7 +76,9 @@ export class MenusComponent implements OnInit {
           this.dish = {
             name: '',
             unitPrice: 10,
-            description: ''
+            description: '',
+            type: 1,
+            isAvailable: true
           }
           return;
         }
