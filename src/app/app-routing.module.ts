@@ -21,7 +21,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: "menus",
+    path: "restaurants/:restaurantId/menu",
     component: MenusComponent,
     canActivate: [AuthGuard]
   }

@@ -3,6 +3,7 @@ import { Dish } from './models/Dish';
 import { MenuService } from './menu.service';
 import { ToastrService } from 'ngx-toastr';
 import { Menu } from './models/Menu';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-menus',
@@ -10,6 +11,8 @@ import { Menu } from './models/Menu';
   styleUrls: []
 })
 export class MenusComponent implements OnInit {
+  restaurantId: number | null = null;
+
   addDishSelected: boolean = false;
   addMenuSelected: boolean = true;
 
@@ -42,25 +45,20 @@ export class MenusComponent implements OnInit {
 
   dishTypeSelected: number = 1;
 
-  constructor(private service: MenuService, private toaster: ToastrService) {}
+  constructor(private service: MenuService, private router: ActivatedRoute, private toaster: ToastrService) {}
   
   ngOnInit(): void {
+    this.getAllDishes();
+    this.getRestaurantId();
+  }
+
+  getAllDishes() {
     this.service.getAllDishes().subscribe({
       next: (response) => {
         this.dishes = response;
       },
       error: () => this.toaster.error("Cound't load dishes")
     })
-  }
-
-  onAddDish(){
-    this.addMenuSelected = false;
-    this.addDishSelected = true;
-  }
-
-  onAddMenu() {
-    this.addDishSelected = false;
-    this.addMenuSelected = true;
   }
 
   onCreateDish() {
@@ -93,6 +91,7 @@ export class MenusComponent implements OnInit {
       ...this.menu,
       dishes: this.selectedDishes.length > 0 ? this.selectedDishes.map(d => d.id!) : []
     }
+    
     this.service.createMenu(this.menu).subscribe({
       next: (response) => {
         if (response.success) {
@@ -101,7 +100,7 @@ export class MenusComponent implements OnInit {
             name: '',
             date: new Date(),
             price: 15,
-            restaurantId: 2,
+            restaurantId: this.restaurantId!,
             dishes: []
           }
           this.selectedDishes = []
@@ -112,4 +111,19 @@ export class MenusComponent implements OnInit {
       error: (_) => this.toaster.error("Error creating dish")
     })
   }
+
+  onAddDish(){
+    this.addMenuSelected = false;
+    this.addDishSelected = true;
+  }
+
+  onAddMenu() {
+    this.addDishSelected = false;
+    this.addMenuSelected = true;
+  }
+
+  getRestaurantId() {
+    this.restaurantId = parseInt(this.router.snapshot.paramMap.get('restaurantId')!);
+  }
+
 }
