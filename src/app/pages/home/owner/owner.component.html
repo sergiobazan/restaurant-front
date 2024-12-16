@@ -1,4 +1,4 @@
-<section class="flex flex-col items-center mt-8">
+<section *ngIf="restaurant" class="flex flex-col items-center mt-8">
   <h1 class="font-semibold text-xl text-gray-900">Welcome back {{ owner?.name }}!</h1>
   <div class="w-full p-6 flex flex-col justify-center items-center gap-3">
     <a routerLink="/orders" class="rounded-lg flex items-center justify-center bg-slate-400 bg-cover bg-center bg-orders min-w-[350px] min-h-[130px]">
@@ -15,4 +15,37 @@
       <h2 class="text-white font-semibold text-lg">Reports</h2>
     </a>
   </div>
+</section>
+
+<section *ngIf="!restaurant" class="flex flex-col items-center mt-8">
+  <h1 class="font-semibold text-xl text-gray-900">Welcome {{ owner?.name }}!</h1>
+  <p class="text-gray-500 mb-4">In order to grow your business. Let's register your restaurant!</p>
+  <form (submit)="createRestaurant()" class="p-6 lg:w-[420px] min-w-[380px] border-2 border-slate-400 rounded-md">
+    <h2 class="font-semibold text-xl text-gray-900 text-center">Restaurant</h2>
+    <div class="flex flex-col gap-1 mb-2">
+      <label for="name">Name</label>
+      <input id="name" type="text" name="name" [(ngModel)]="restaurantInput.name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
+    </div>
+    <div class="flex flex-col gap-1 mb-2">
+      <label for="address">Address</label>
+      <input id="address" type="text" name="address" [(ngModel)]="restaurantInput.address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
+    </div>
+    <div class="flex flex-col gap-1 mb-2">
+      <label for="description">Description</label>
+      <textarea id="description" type="text" name="description" [(ngModel)]="restaurantInput.description" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"></textarea>
+    </div>
+    <div class="flex justify-between items-center gap-2">
+      <div class="flex flex-col gap-1 mb-2 w-full">
+        <label for="openAt">Open At</label>
+        <input id="openAt" type="time" name="openAt" [(ngModel)]="restaurantInput.openAt" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
+      </div>
+      <div class="flex flex-col gap-1 mb-2 w-full">
+        <label for="closeAt">Close At</label>
+        <input id="closeAt" type="time" name="closeAt" [(ngModel)]="restaurantInput.closeAt" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
+      </div>
+    </div>
+    <button type="submit" class="bg-blue-500 text-white w-full py-2 rounded-lg mt-4 hover:bg-blue-600 transition duration-200">
+      Create
+    </button>
+  </form>
 </section>
