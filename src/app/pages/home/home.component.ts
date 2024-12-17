@@ -12,7 +12,7 @@ import { Restaurant } from './models/Restaurant';
 })
 export class HomeComponent implements OnInit {
   user: User | null = null;
-  restaurantId: number = 1; // TODO fix restaurant id
+  restaurantId: number = 3; // TODO fix restaurant id
   restaurant: Restaurant | null = null;
   
   constructor(

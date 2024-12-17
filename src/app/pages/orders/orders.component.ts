@@ -18,6 +18,8 @@ export class OrdersComponent implements OnInit {
 
   selectedStatus: string | null = ''
 
+  dateSelected: string = 'today'
+
   constructor(private service: OrderService, private router: ActivatedRoute, private toaster: ToastrService) {}
 
   ngOnInit(): void {
@@ -26,7 +28,7 @@ export class OrdersComponent implements OnInit {
   }
 
   protected getOrders() {
-    this.service.getOrdersByRestaurant(this.restaurantId!).subscribe({
+    this.service.getOrdersByRestaurant(this.restaurantId!, this.dateSelected).subscribe({
       next: (response) => {
         if (response.success) {
           this.orders = response.data;
@@ -75,6 +77,10 @@ export class OrdersComponent implements OnInit {
       },
       error: () => this.toaster.error("Error updating payment status")
     });
+  }
+
+  handleDateFilter() {
+    this.getOrders()
   }
 }
 

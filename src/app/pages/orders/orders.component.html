@@ -1,6 +1,13 @@
 <section class="flex flex-col items-center mt-8">
   <h1 class="font-semibold text-xl text-gray-900 mb-6">Orders</h1>
 
+  <select [(ngModel)]="dateSelected" (change)="handleDateFilter()" class=" text-center my-4 bg-gray-50 max-w-[160px] border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+    <option value="today">Today</option>
+    <option value="week">Last Week</option>
+    <option value="month">Last Month</option>
+    <option value="all">All</option>
+  </select>
+
   <div class="w-full max-w-[420px] sm:max-w-[620px] bg-white ">
     <div *ngFor="let order of orders" class="flex items-center border gap-2 mb-3 rounded-lg shadow-md p-2 py-4 sm:p-4">
       <img src="https://via.placeholder.com/60" alt="Dish" class="rounded-md object-cover">

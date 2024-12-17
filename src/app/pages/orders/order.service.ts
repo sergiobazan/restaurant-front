@@ -10,8 +10,8 @@ export class OrderService {
 
   constructor(private http: HttpClient) { }
 
-  getOrdersByRestaurant(id: number) {
-    return this.http.get<Response>(`${apiUrl}/orders/restaurant/${id}`);
+  getOrdersByRestaurant(id: number, date?: string) {
+    return this.http.get<Response>(`${apiUrl}/orders/restaurant/${id}?date=${date}`);
   }
 
   updateOrderStatus(id: number, status: number) {
