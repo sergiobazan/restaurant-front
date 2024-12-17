@@ -3,6 +3,9 @@ import { User } from '../models/User';
 import { Restaurant } from '../models/Restaurant';
 import { Dish, DishType } from '../models/Dish';
 import * as moment from 'moment';
+import { ClientService } from './client.service';
+import { OrderRequest } from './models/OrderRequest';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-client',
@@ -21,6 +24,10 @@ export class ClientComponent {
   starterSelected: Dish | null = null;
   mainSelected: Dish | null = null;
 
+  instructions: string = 'Default';
+
+  constructor(private service: ClientService, private toaster: ToastrService) {}
+
   protected selectStarter(starter: Dish) {
     this.starterSelected = starter;
   }
@@ -29,9 +36,24 @@ export class ClientComponent {
     this.mainSelected = main;
   }
 
-  protected orderMenu() {
-    console.log("Starter: ", this.starterSelected)
-    console.log("Main: ", this.mainSelected)
+  protected placeOrder() {
+    const orderRequest: OrderRequest = {
+      clientId: this.client?.id!,
+      menuId: this.restaurant?.menu.id!,
+      restaurantId: this.restaurant?.id!,
+      description: this.instructions,
+      dishIds: [this.starterSelected?.id!, this.mainSelected?.id!]
+    };
+    this.service.placeOrder(orderRequest).subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.toaster.success(response.message);
+          return;
+        }
+        return this.toaster.error("Error placing order");
+      },
+      error: () => this.toaster.error("Error placing order")
+    });
   }
 
   private ngOnChanges(changes: SimpleChanges): void {
@@ -47,5 +69,9 @@ export class ClientComponent {
     const openAt = moment(this.restaurant?.openAt, 'HH:mm:ss');
     const closeAt = moment(this.restaurant?.closeAt, 'HH:mm:ss');
     return now.isBefore(openAt) || now.isAfter(closeAt);
+  }
+
+  isValidOrder() {
+    return this.client && this.restaurant && this.mainSelected && this.starterSelected;
   }
 }

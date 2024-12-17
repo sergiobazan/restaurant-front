@@ -38,7 +38,12 @@
     </label>
   </div>
 
-  <button (click)="orderMenu()" class="bg-blue-500 text-white w-full py-2 rounded-lg mt-4 hover:bg-blue-600 transition duration-200">
+  <div class="text-gray-600 flex flex-col gap-1 mt-4 mb-2">
+    <label for="instructions">Instructions</label>
+    <textarea id="instructions" name="instructions" [(ngModel)]="instructions" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"></textarea>
+  </div>
+
+  <button (click)="placeOrder()" [disabled]="!isValidOrder()" class="disabled:bg-gray-300 bg-blue-500 text-white w-full py-2 rounded-lg mt-4 hover:bg-blue-600 transition duration-200">
     Order
   </button>
 </section>
