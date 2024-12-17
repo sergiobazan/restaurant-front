@@ -37,7 +37,7 @@ export class MenusComponent implements OnInit {
     name: '',
     date: new Date(),
     price: 15,
-    restaurantId: 2,
+    restaurantId: this.restaurantId!,
     dishes: []
   }
 
@@ -89,6 +89,7 @@ export class MenusComponent implements OnInit {
   onCreateMenu() {
     this.menu = {
       ...this.menu,
+      restaurantId: this.restaurantId!,
       dishes: this.selectedDishes.length > 0 ? this.selectedDishes.map(d => d.id!) : []
     }
     
