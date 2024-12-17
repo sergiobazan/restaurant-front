@@ -21,19 +21,19 @@
           <label class="text-sm">Status:</label>
           <select 
             [ngModel]="getDefaultStatus(order)" 
-            (ngModelChange)="onStatusChange($event)" 
+            (ngModelChange)="onStatusChange($event, order.id)" 
             class="border-blue-400 text-sm sm:text-md text-center text-blue-400 border rounded-lg px-1 focus:outline-none">
             <option *ngFor="let status of orderStatus" [value]="status.id">
               {{ status.name }}
             </option>
-        </select>
+          </select>
         </div>
         
         <div class="flex flex-col gap-1">
           <label class="text-sm">Payment:</label>
           <select 
             [ngModel]="getDefaultPaymentStatus(order)"
-            (ngModelChange)="onPaymentStatusChange($event)"
+            (ngModelChange)="onPaymentStatusChange($event, order.id)"
             class="border-green-400 text-sm sm:text-md text-center text-green-400 border  rounded-lg px-1 focus:outline-none">
             <option *ngFor="let status of paymentStatus" [value]="status.id">{{ status.name }}</option>
           </select>

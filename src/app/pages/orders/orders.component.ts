@@ -53,12 +53,28 @@ export class OrdersComponent implements OnInit {
     return this.paymentStatus.find(os => os.name.toLowerCase().includes(order.paymentStatus.toLowerCase()))?.id;
   }
 
-  onStatusChange(newOrderStatus: string): void {
-     // Actualizar el estado en el objeto
+  onStatusChange(newOrderStatus: string, orderId: number): void {
+    this.service.updateOrderStatus(orderId, parseInt(newOrderStatus)).subscribe({
+      next: (response) => {
+        if (response.success) {
+          return;
+        }
+        return this.toaster.error(response.message);
+      },
+      error: () => this.toaster.error("Error updating status order")
+    });
   }
 
-  onPaymentStatusChange(newPaymentStatus: string) {
-    //order.paymentStatus = newStatus;
+  onPaymentStatusChange(newPaymentStatus: string, orderId: number) {
+    this.service.updatePaymentStatus(orderId, parseInt(newPaymentStatus)).subscribe({
+      next: (response) => {
+        if (response.success) {
+          return;
+        }
+        return this.toaster.error(response.message);
+      },
+      error: () => this.toaster.error("Error updating payment status")
+    });
   }
 }
 

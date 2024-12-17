@@ -13,4 +13,12 @@ export class OrderService {
   getOrdersByRestaurant(id: number) {
     return this.http.get<Response>(`${apiUrl}/orders/restaurant/${id}`);
   }
+
+  updateOrderStatus(id: number, status: number) {
+    return this.http.put<Response>(`${apiUrl}/orders/${id}/status/${status}`, {});
+  }
+
+  updatePaymentStatus(id: number, status: number) {
+    return this.http.put<Response>(`${apiUrl}/orders/${id}/payment-status/${status}`, {});
+  }
 }
