@@ -1,7 +1,7 @@
 <section *ngIf="restaurant" class="flex flex-col items-center mt-8">
   <h1 class="font-semibold text-xl text-gray-900">Welcome back {{ owner?.name }}!</h1>
   <div class="w-full p-6 flex flex-col justify-center items-center gap-3">
-    <a routerLink="/orders" class="rounded-lg flex items-center justify-center bg-slate-400 bg-cover bg-center bg-orders min-w-[350px] min-h-[130px]">
+    <a [routerLink]="['/restaurants', restaurant.id, 'orders']" class="rounded-lg flex items-center justify-center bg-slate-400 bg-cover bg-center bg-orders min-w-[350px] min-h-[130px]">
       <h2 class="text-white font-semibold text-lg">Orders</h2>
     </a>
   </div>

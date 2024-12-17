@@ -17,7 +17,8 @@ import { AuthService } from './shared/AuthService';
 import { MenusComponent } from './pages/menus/menus.component';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { OwnerComponent } from './pages/home/owner/owner.component';
-import { ClientComponent } from './pages/home/client/client.component'
+import { ClientComponent } from './pages/home/client/client.component';
+import { OrdersComponent } from './pages/orders/orders.component'
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ClientComponent } from './pages/home/client/client.component'
     RegisterComponent,
     MenusComponent,
     OwnerComponent,
-    ClientComponent
+    ClientComponent,
+    OrdersComponent
   ],
   imports: [
     BrowserModule,
