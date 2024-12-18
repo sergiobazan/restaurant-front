@@ -23,7 +23,7 @@ export enum PaymentStatus {
   PAID = 'PAID'
 }
 
-interface Dish {
+export interface Dish {
   id: number
   name: string
   type: DishType

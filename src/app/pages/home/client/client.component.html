@@ -3,12 +3,15 @@
     <h1 class="font-semibold text-xl text-gray-900">Hello {{ client?.name }}!</h1>
     <h2 class="font-semibold text-xl text-gray-900">We're closed for today</h2>
   </div>
-  <a routerLink="/orders" class="font-semibold border bg-blue-500 text-white px-4 py-1 rounded-md">Previous Orders</a>
+  <a [routerLink]="['client', client?.id, 'orders']" class="font-semibold border bg-blue-500 text-white px-4 py-1 rounded-md">Previous Orders</a>
   <div class="rounded-lg flex items-center justify-center bg-cover bg-center bg-closed min-w-[350px] min-h-[250px]"></div>
 </section>
 
+<div *ngIf="!isClosed" class="pt-6 mx-auto max-w-sm">
+  <a [routerLink]="['client', client?.id, 'orders']" class="font-semibold border bg-blue-500 text-white px-4 py-1 rounded-md">My Orders</a>
+</div>
 
-<section *ngIf="!isClosed" class="max-w-sm sm:max-w-md mx-auto bg-white rounded-lg shadow-lg mt-10 p-6">
+<section *ngIf="!isClosed" class="max-w-sm sm:max-w-md mx-auto bg-white rounded-lg border shadow-lg mt-6 p-6">
   <h1 class="text-gray-700 text-2xl font-bold mb-2">Hello {{ client?.name }}</h1>
   <p class="text-gray-500 mb-4">Ready for the best homemade food? <strong>Order here!</strong></p>
   <h2 class="text-gray-800 font-bold text-xl mb-4">{{ restaurant?.menu?.name }}</h2>

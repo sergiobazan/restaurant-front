@@ -6,6 +6,7 @@ import { AuthGuard } from './guard/AuthGuard';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { MenusComponent } from './pages/menus/menus.component';
 import { OrdersComponent } from './pages/orders/orders.component';
+import { ClientOrderComponent } from './pages/orders/client/client.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,11 @@ const routes: Routes = [
     component: OrdersComponent,
     canActivate: [AuthGuard]
   },
+  {
+    path: "client/:clientId/orders",
+    component: ClientOrderComponent,
+    canActivate: [AuthGuard]
+  }
 ];
 
 @NgModule({

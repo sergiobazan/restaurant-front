@@ -16,8 +16,6 @@ export class OrdersComponent implements OnInit {
   orderStatus = ['Pending', 'Confirmed', 'Delivered'].map((os, idx) => ({ id: idx, name: os }))
   paymentStatus = ['Pending', 'Paid'].map((os, idx) => ({ id: idx, name: os }))
 
-  selectedStatus: string | null = ''
-
   dateSelected: string = 'today'
 
   constructor(private service: OrderService, private router: ActivatedRoute, private toaster: ToastrService) {}

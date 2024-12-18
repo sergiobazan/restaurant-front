@@ -19,6 +19,7 @@ import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { OwnerComponent } from './pages/home/owner/owner.component';
 import { ClientComponent } from './pages/home/client/client.component';
 import { OrdersComponent } from './pages/orders/orders.component'
+import { ClientOrderComponent } from './pages/orders/client/client.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { OrdersComponent } from './pages/orders/orders.component'
     MenusComponent,
     OwnerComponent,
     ClientComponent,
-    OrdersComponent
+    OrdersComponent,
+    ClientOrderComponent
   ],
   imports: [
     BrowserModule,
