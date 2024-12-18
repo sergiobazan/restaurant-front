@@ -78,6 +78,7 @@ export class MenusComponent implements OnInit {
             type: 1,
             isAvailable: true
           }
+          this.getAllDishes();
           return;
         }
         return this.toaster.error(response.message);
