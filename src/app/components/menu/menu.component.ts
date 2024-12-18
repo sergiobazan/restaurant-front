@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/AuthService';
 
 @Component({
@@ -7,12 +8,26 @@ import { AuthService } from 'src/app/shared/AuthService';
   styleUrls: []
 })
 export class MenuComponent {
-  isLoggedIn: boolean = !!localStorage.getItem('token');
+  isLoggedIn = false;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
-  logout() {
-    this.isLoggedIn = false;
+  ngOnInit(): void {
+    this.checkLoginStatus();
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.checkLoginStatus();
+      }
+    });
+  }
+
+  checkLoginStatus(): void {
+    this.isLoggedIn = !!localStorage.getItem('token');
+  }
+
+  logout(): void {
     this.authService.logout();
+    this.checkLoginStatus();
   }
 }
