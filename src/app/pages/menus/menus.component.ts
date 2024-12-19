@@ -110,7 +110,7 @@ export class MenusComponent implements OnInit {
         }
         return this.toaster.error(response.message);
       },
-      error: (_) => this.toaster.error("Error creating dish")
+      error: ({error}) => this.toaster.error(error?.message)
     })
   }
 

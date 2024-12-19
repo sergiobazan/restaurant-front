@@ -50,9 +50,9 @@ export class ClientComponent {
           this.toaster.success(response.message);
           return;
         }
-        return this.toaster.error("Error placing order");
+        return this.toaster.error(response.message);
       },
-      error: () => this.toaster.error("Error placing order")
+      error: ({error}) => this.toaster.error(error?.message || "Error placing order")
     });
   }
 

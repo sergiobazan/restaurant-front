@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit {
         }
         return this.toaster.error(result.message);
       },
-      error: () => this.toaster.error("Error fetching the restaurant")
+      error: ({error}) => this.toaster.error(error?.message || "Error fetching the restaurant")
     })
   }
 }
