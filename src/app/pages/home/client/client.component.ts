@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import { ClientService } from './client.service';
 import { OrderRequest } from './models/OrderRequest';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-client',
@@ -26,7 +27,7 @@ export class ClientComponent {
 
   instructions: string = 'Default';
 
-  constructor(private service: ClientService, private toaster: ToastrService) {}
+  constructor(private service: ClientService, private router: Router, private toaster: ToastrService) {}
 
   protected selectStarter(starter: Dish) {
     this.starterSelected = starter;
@@ -48,6 +49,7 @@ export class ClientComponent {
       next: (response) => {
         if (response.success) {
           this.toaster.success(response.message);
+          this.router.navigate(['/client', this.client?.id, 'orders']);
           return;
         }
         return this.toaster.error(response.message);

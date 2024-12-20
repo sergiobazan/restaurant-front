@@ -13,40 +13,45 @@
 
 <section *ngIf="!isClosed" class="max-w-sm sm:max-w-md mx-auto bg-white rounded-lg border shadow-lg mt-6 p-6">
   <h1 class="text-gray-700 text-2xl font-bold mb-2">Hello {{ client?.name }}</h1>
-  <p class="text-gray-500 mb-4">Ready for the best homemade food? <strong>Order here!</strong></p>
-  <h2 class="text-gray-800 font-bold text-xl mb-4">{{ restaurant?.menu?.name }}</h2>
-  <p class="text-gray-800 font-bold text-lg mb-4">Menu ${{ restaurant?.menu?.price }}</p>
-
-  <h2 class="text-gray-600 font-semibold mb-2">Select Starter</h2>
-  <div class="space-y-2">
-    <label *ngFor="let starter of starters" class="flex items-center border rounded-lg p-2 hover:shadow-md cursor-pointer">
-      <input type="radio" name="starter" (change)="selectStarter(starter)" class="form-radio text-blue-500 mr-4">
-      <img src="https://via.placeholder.com/50" alt="Starter" class="w-12 h-12 rounded-md mr-4">
-      <div>
-        <h3 class="font-semibold text-gray-800">{{ starter?.name }}</h3>
-        <p class="text-gray-500 text-sm">{{ starter?.description}}</p>
-      </div>
-    </label>
+  <div *ngIf="restaurant?.menu">
+    <p class="text-gray-500 mb-4">Ready for the best homemade food? <strong>Order here!</strong></p>
+    <h2 class="text-gray-800 font-bold text-xl mb-4">{{ restaurant?.menu?.name }}</h2>
+    <p class="text-gray-800 font-bold text-lg mb-4">Menu ${{ restaurant?.menu?.price }}</p>
+  
+    <h2 class="text-gray-600 font-semibold mb-2">Select Starter</h2>
+    <div class="space-y-2">
+      <label *ngFor="let starter of starters" class="flex items-center border rounded-lg p-2 hover:shadow-md cursor-pointer">
+        <input type="radio" name="starter" (change)="selectStarter(starter)" class="form-radio text-blue-500 mr-4">
+        <img src="https://via.placeholder.com/50" alt="Starter" class="w-12 h-12 rounded-md mr-4">
+        <div>
+          <h3 class="font-semibold text-gray-800">{{ starter?.name }}</h3>
+          <p class="text-gray-500 text-sm">{{ starter?.description}}</p>
+        </div>
+      </label>
+    </div>
+  
+    <h2 class="text-gray-600 font-semibold mt-4 mb-2">Main Course</h2>
+    <div class="space-y-2">
+      <label *ngFor="let main of mainCourse" class="flex items-center border rounded-lg p-2 hover:shadow-md cursor-pointer">
+        <input type="radio" name="main" (change)="selectMain(main)" class="form-radio text-blue-500 mr-4">
+        <img src="https://via.placeholder.com/50" alt="Main Course" class="w-12 h-12 rounded-md mr-4">
+        <div>
+          <h3 class="font-semibold text-gray-800">{{ main?.name }}</h3>
+          <p class="text-gray-500 text-sm">{{ main?.description}}</p>
+        </div>
+      </label>
+    </div>
+  
+    <div class="text-gray-600 flex flex-col gap-1 mt-4 mb-2">
+      <label for="instructions">Instructions</label>
+      <textarea id="instructions" name="instructions" [(ngModel)]="instructions" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"></textarea>
+    </div>
+  
+    <button (click)="placeOrder()" [disabled]="!isValidOrder()" class="disabled:bg-gray-300 bg-blue-500 text-white w-full py-2 rounded-lg mt-4 hover:bg-blue-600 transition duration-200">
+      Order
+    </button>
   </div>
-
-  <h2 class="text-gray-600 font-semibold mt-4 mb-2">Main Course</h2>
-  <div class="space-y-2">
-    <label *ngFor="let main of mainCourse" class="flex items-center border rounded-lg p-2 hover:shadow-md cursor-pointer">
-      <input type="radio" name="main" (change)="selectMain(main)" class="form-radio text-blue-500 mr-4">
-      <img src="https://via.placeholder.com/50" alt="Main Course" class="w-12 h-12 rounded-md mr-4">
-      <div>
-        <h3 class="font-semibold text-gray-800">{{ main?.name }}</h3>
-        <p class="text-gray-500 text-sm">{{ main?.description}}</p>
-      </div>
-    </label>
+  <div *ngIf="!restaurant?.menu">
+    <p class="text-gray-500">Sorry, we're not taking orders at the moment. Please come back later.</p>
   </div>
-
-  <div class="text-gray-600 flex flex-col gap-1 mt-4 mb-2">
-    <label for="instructions">Instructions</label>
-    <textarea id="instructions" name="instructions" [(ngModel)]="instructions" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"></textarea>
-  </div>
-
-  <button (click)="placeOrder()" [disabled]="!isValidOrder()" class="disabled:bg-gray-300 bg-blue-500 text-white w-full py-2 rounded-lg mt-4 hover:bg-blue-600 transition duration-200">
-    Order
-  </button>
 </section>
