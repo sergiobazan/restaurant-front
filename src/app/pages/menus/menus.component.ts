@@ -4,6 +4,8 @@ import { MenuService } from './menu.service';
 import { ToastrService } from 'ngx-toastr';
 import { Menu } from './models/Menu';
 import { ActivatedRoute } from '@angular/router';
+import { Restaurant } from '../home/models/Restaurant';
+import { HomeService } from '../home/home.service';
 
 @Component({
   selector: 'app-menus',
@@ -12,6 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class MenusComponent implements OnInit {
   restaurantId: number | null = null;
+  restaurant: Restaurant | null = null;
 
   addDishSelected: boolean = false;
   addMenuSelected: boolean = true;
@@ -45,11 +48,12 @@ export class MenusComponent implements OnInit {
 
   dishTypeSelected: number = 1;
 
-  constructor(private service: MenuService, private router: ActivatedRoute, private toaster: ToastrService) {}
+  constructor(private service: MenuService, private homeService: HomeService, private router: ActivatedRoute, private toaster: ToastrService) {}
   
   ngOnInit(): void {
     this.getAllDishes();
     this.getRestaurantId();
+    this.getRestaurant();
   }
 
   getAllDishes() {
@@ -58,6 +62,19 @@ export class MenusComponent implements OnInit {
         this.dishes = response;
       },
       error: () => this.toaster.error("Cound't load dishes")
+    })
+  }
+
+  getRestaurant() {
+    this.homeService.getRestaurant(this.restaurantId!).subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.restaurant = response.data;
+          return;
+        }
+        return this.toaster.error(response.message);
+      },
+      error: ({error}) => this.toaster.error(error?.message || "Error fetching the restaurant")
     })
   }
 
@@ -112,6 +129,10 @@ export class MenusComponent implements OnInit {
       },
       error: ({error}) => this.toaster.error(error?.message)
     })
+  }
+
+  onEditMenu() {
+    
   }
 
   onAddDish(){
