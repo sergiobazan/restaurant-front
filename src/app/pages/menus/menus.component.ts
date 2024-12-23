@@ -17,7 +17,8 @@ export class MenusComponent implements OnInit {
   restaurant: Restaurant | null = null;
 
   addDishSelected: boolean = false;
-  addMenuSelected: boolean = true;
+  addMenuSelected: boolean = false;
+  editMenuSelected: boolean = false;
 
   dishTypes = ['Starter', 'Main Course', 'Extra'].map((dt, idx) => ({id: idx, name: dt}));
 
@@ -43,6 +44,9 @@ export class MenusComponent implements OnInit {
     restaurantId: this.restaurantId!,
     dishes: []
   }
+
+  todayMenu: Menu | null = null;
+  todayDishes: Dish[] = [];
 
   dishes: Dish[] = [];
 
@@ -70,6 +74,10 @@ export class MenusComponent implements OnInit {
       next: (response) => {
         if (response.success) {
           this.restaurant = response.data;
+          this.editMenuSelected = response.data.menu !== null;
+          this.addMenuSelected = response.data.menu === null;
+          this.todayMenu = response.data.menu;
+          this.todayDishes = response.data.menu?.dishes || [];
           return;
         }
         return this.toaster.error(response.message);
@@ -123,6 +131,7 @@ export class MenusComponent implements OnInit {
             dishes: []
           }
           this.selectedDishes = []
+          this.getRestaurant();
           return;
         }
         return this.toaster.error(response.message);
@@ -132,17 +141,26 @@ export class MenusComponent implements OnInit {
   }
 
   onEditMenu() {
-    
+
   }
 
+
+  onSelectEditMenu() {
+    this.editMenuSelected = true;
+    this.addDishSelected = false;
+    this.addMenuSelected = false;
+  }
+  
   onAddDish(){
     this.addMenuSelected = false;
     this.addDishSelected = true;
+    this.editMenuSelected = false;
   }
 
   onAddMenu() {
     this.addDishSelected = false;
     this.addMenuSelected = true;
+    this.editMenuSelected = false;
   }
 
   getRestaurantId() {

@@ -4,7 +4,7 @@
     <button (click)="onAddMenu()" class="border bg-green-400 text-white px-4 py-1 rounded-md">
       Add Menu
     </button>
-    <button *ngIf="restaurant?.menu" (click)="onEditMenu()" class="border bg-orange-400 text-white px-4 py-1 rounded-md">
+    <button *ngIf="restaurant?.menu" (click)="onSelectEditMenu()" class="border bg-orange-400 text-white px-4 py-1 rounded-md">
       Edit Menu
     </button>
     <button (click)="onAddDish()" class="border bg-yellow-300 text-white px-4 py-1 rounded-md">
@@ -32,7 +32,7 @@
         <label for="description">Description</label>
         <textarea id="description" name="description" [(ngModel)]="dish.description" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"></textarea>
       </div>
-      <button type="submit" class="border bg-blue-500 text-white px-4 py-1 rounded-md">
+      <button type="submit" class="border bg-yellow-500 text-white px-4 py-1 rounded-md">
         Create Dish
       </button>
     </form>
@@ -64,8 +64,40 @@
           [options]="dishes">
         </ngx-select-dropdown>
       </div>
-      <button type="submit" class="border bg-blue-500 text-white px-4 py-1 rounded-md">
+      <button type="submit" class="border bg-green-500 text-white px-4 py-1 rounded-md">
         Create Menu
+      </button>
+    </form>
+  </div>
+
+  <div *ngIf="editMenuSelected && todayMenu" class="p-6 lg:w-[420px] min-w-[380px] border-2 border-slate-400 rounded-md">
+    <h2 class="font-semibold text-xl text-gray-900 text-center">Today Menu</h2>
+    <form (submit)="onEditMenu()">
+      <div class="flex flex-col gap-1 mb-2">
+        <label for="name">Name</label>
+        <input id="name" type="text" name="name" [(ngModel)]="todayMenu.name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
+      </div>
+      <div class="flex flex-col gap-1 mb-2">
+        <label for="price">Price</label>
+        <input id="price" type="number" min="1" name="price" [(ngModel)]="todayMenu.price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
+      </div>
+      <div class="flex flex-col gap-1 mb-2">
+        <label for="date">Date</label>
+        <input id="date" type="date" name="date" [(ngModel)]="todayMenu.date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
+      </div>
+      <div class="flex flex-col gap-1 mb-2">
+        <label for="dishes">Dishes</label>
+        <ngx-select-dropdown 
+          name="dishes"
+          [instanceId]="'dishes'"
+          [multiple]="true" 
+          [config]="config" 
+          [(ngModel)]="todayDishes" 
+          [options]="dishes">
+        </ngx-select-dropdown>
+      </div>
+      <button type="submit" class="border bg-orange-500 text-white px-4 py-1 rounded-md">
+        Edit Menu
       </button>
     </form>
   </div>
