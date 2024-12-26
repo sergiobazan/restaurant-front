@@ -41,6 +41,18 @@
         </div>
       </label>
     </div>
+
+    <h2 class="text-gray-600 font-semibold mt-4 mb-2">Extra</h2>
+    <div class="space-y-2">
+      <label *ngFor="let extra of extras" class="flex items-center border rounded-lg p-2 hover:shadow-md cursor-pointer">
+        <input type="radio" name="main" (change)="selectMain(extra)" class="form-radio text-blue-500 mr-4">
+        <img src="https://via.placeholder.com/50" alt="Extra" class="w-12 h-12 rounded-md mr-4">
+        <div>
+          <h3 class="font-semibold text-gray-800">{{ extra?.name }}</h3>
+          <p class="text-gray-500 text-sm">{{ extra?.description}}</p>
+        </div>
+      </label>
+    </div>
   
     <div class="text-gray-600 flex flex-col gap-1 mt-4 mb-2">
       <label for="instructions">Instructions</label>

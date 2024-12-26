@@ -34,7 +34,8 @@ export class MenusComponent implements OnInit {
     unitPrice: 10,
     description: '',
     type: 1,
-    isAvailable: true
+    isAvailable: true,
+    restaurantId: this.restaurantId!
   };
 
   menu: Menu = {
@@ -55,15 +56,19 @@ export class MenusComponent implements OnInit {
   constructor(private service: MenuService, private homeService: HomeService, private router: ActivatedRoute, private toaster: ToastrService) {}
   
   ngOnInit(): void {
-    this.getAllDishes();
     this.getRestaurantId();
     this.getRestaurant();
+    this.getAllDishes();
   }
 
   getAllDishes() {
-    this.service.getAllDishes().subscribe({
+    this.service.getAllDishes(this.restaurantId!).subscribe({
       next: (response) => {
-        this.dishes = response;
+        if (response.success) {
+          this.dishes = response.data;
+          return;
+        }
+        return this.toaster.error(response.message);
       },
       error: () => this.toaster.error("Cound't load dishes")
     })
@@ -89,7 +94,8 @@ export class MenusComponent implements OnInit {
   onCreateDish() {
     this.dish = {
       ...this.dish,
-      type: this.dishTypeSelected
+      type: this.dishTypeSelected,
+      restaurantId: this.restaurantId!
     }
     
     this.service.createDish(this.dish).subscribe({
@@ -101,7 +107,8 @@ export class MenusComponent implements OnInit {
             unitPrice: 10,
             description: '',
             type: 1,
-            isAvailable: true
+            isAvailable: true,
+            restaurantId: this.restaurantId!
           }
           this.getAllDishes();
           return;

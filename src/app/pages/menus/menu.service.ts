@@ -20,7 +20,7 @@ export class MenuService {
     return this.http.post<Response>(`${apiUrl}/menus`, menu);
   }
 
-  getAllDishes() {
-    return this.http.get<Dish[]>(`${apiUrl}/dishes`);
+  getAllDishes(restaurantId: number) {
+    return this.http.get<Response>(`${apiUrl}/restaurants/${restaurantId}/dishes`);
   }
 }

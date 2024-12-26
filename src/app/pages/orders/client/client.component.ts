@@ -43,6 +43,10 @@ export class ClientOrderComponent implements OnInit {
     return order.dishes.find(dish => dish.type === DishType.MAIN_COURSE)?.name  || 'N/A';
   }
 
+  protected getExtraDishName(order: Order) {
+    return order.dishes.find(dish => dish.type === DishType.EXTRA)?.name  || 'N/A';
+  }
+
   handleDateFilter() {
     this.getOrders()
   }

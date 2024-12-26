@@ -6,4 +6,5 @@ export interface Dish {
   description: string;
   type: number;
   isAvailable: boolean;
+  restaurantId: number;
 }

@@ -21,9 +21,11 @@ export class ClientComponent {
   isClosed: boolean = false;
   starters: Dish[] = [];
   mainCourse: Dish[] = [];
+  extras: Dish[] = [];
 
   starterSelected: Dish | null = null;
   mainSelected: Dish | null = null;
+  extraSelected: Dish | null = null;
 
   instructions: string = 'Default';
 
@@ -37,13 +39,17 @@ export class ClientComponent {
     this.mainSelected = main;
   }
 
+  protected selectExtra(extra: Dish) {
+    this.extraSelected = extra;
+  }
+
   protected placeOrder() {
     const orderRequest: OrderRequest = {
       clientId: this.client?.id!,
       menuId: this.restaurant?.menu.id!,
       restaurantId: this.restaurant?.id!,
       description: this.instructions,
-      dishIds: [this.starterSelected?.id!, this.mainSelected?.id!]
+      dishIds: [this.starterSelected?.id!, this.mainSelected?.id!, this.extraSelected?.id!]
     };
     this.service.placeOrder(orderRequest).subscribe({
       next: (response) => {
@@ -63,6 +69,7 @@ export class ClientComponent {
       this.isClosed = this.getIsClosed();
       this.starters = this.restaurant.menu?.dishes.filter(dish => dish.type === DishType.STARTED) || [];
       this.mainCourse = this.restaurant.menu?.dishes.filter(dish => dish.type === DishType.MAIN_COURSE) || [];
+      this.extras = this.restaurant.menu?.dishes.filter(dish => dish.type === DishType.EXTRA) || [];
     }
   }
 
@@ -74,6 +81,6 @@ export class ClientComponent {
   }
 
   isValidOrder() {
-    return this.client && this.restaurant && this.mainSelected && this.starterSelected;
+    return this.client && this.restaurant && (this.mainSelected || this.starterSelected || this.extraSelected);
   }
 }
