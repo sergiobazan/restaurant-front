@@ -77,6 +77,10 @@ export class OrdersComponent implements OnInit {
     });
   }
 
+   protected getExtraDishName(order: Order) {
+      return order.dishes.find(dish => dish.type === DishType.EXTRA)?.name  || 'N/A';
+    }
+
   handleDateFilter() {
     this.getOrders()
   }
