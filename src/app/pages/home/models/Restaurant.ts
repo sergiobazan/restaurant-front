@@ -8,4 +8,5 @@ export interface Restaurant {
   openAt: Date
   closeAt: Date
   menu: Menu
+  slug: string
 }
