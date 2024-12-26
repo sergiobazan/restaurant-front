@@ -1,2 +1,2 @@
 
-export const apiUrl = "http://107.21.71.184:8080";
+export const apiUrl = "https://restaurant-bsji.onrender.com";
